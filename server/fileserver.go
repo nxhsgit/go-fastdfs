@@ -667,6 +667,9 @@ func (c *Server) IsPeer(r *http.Request) bool {
 	}
 	//return true
 	ip = c.GetRealIp(r)
+	if c.util.Contains("*.*.*.*", Config().AdminIps) {
+		return true
+	}
 	if c.util.Contains("0.0.0.0", Config().AdminIps) {
 		if IsPublicIP(net.ParseIP(ip)) {
 			return false
